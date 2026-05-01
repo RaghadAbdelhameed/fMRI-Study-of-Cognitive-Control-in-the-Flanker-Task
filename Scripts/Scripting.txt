@@ -1,0 +1,44 @@
+Bash
+cd /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/
+Open a new script file:
+
+Bash
+nano run_all_feat.sh
+Paste this exact code:
+
+Bash
+#!/bin/bash
+
+# Navigate to your dataset folder
+cd /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/
+
+# Loop through all subjects 01 to 26
+for id in {01..26}; do
+    subj="sub-${id}"
+    
+    # Loop through run 1 and run 2
+    for run in 1 2; do
+        
+        echo "==============================================="
+        echo " Setting up FEAT for ${subj} Run ${run}..."
+        echo "==============================================="
+
+        # This command creates a new .fsf file for the specific subject and run.
+        # It replaces "sub-04" with the current subject.
+        # It replaces "run-1" with the current run (for the BOLD data).
+        # It replaces "run1" with the current run (for the .txt timing files).
+        sed -e "s/sub-04/${subj}/g" -e "s/run-1/run-${run}/g" -e "s/run1/run${run}/g" design_sub04_run1.fsf > design_${subj}_run${run}.fsf
+
+        # Run FSL FEAT using the newly generated file
+        feat design_${subj}_run${run}.fsf
+
+    done
+done
+
+echo "ALL SUBJECTS AND RUNS ARE COMPLETELY FINISHED!"
+Save and exit (Ctrl+O, Enter, Ctrl+X).
+
+Run the master script!
+
+Bash
+bash run_all_feat.sh

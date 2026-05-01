@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# This script loops through the 5 FSL statistical model codes:
+# 0=Fixed, 1=OLS, 2=FLAME1, 3=FLAME1+2, 4=Randomise
+
+for stat_code in 0 1 2 3 4; do
+  
+  # Assign a readable name for the output folder
+  if [ $stat_code -eq 0 ]; then
+    stat_name="Fixed"
+  elif [ $stat_code -eq 1 ]; then
+    stat_name="OLS"
+  elif [ $stat_code -eq 2 ]; then
+    stat_name="FLAME1"
+  elif [ $stat_code -eq 3 ]; then
+    stat_name="FLAME1plus2"
+  elif [ $stat_code -eq 4 ]; then
+    stat_name="Randomise"
+  fi
+  
+  echo "======================================================="
+  echo "Preparing Cope 3 analysis using: ${stat_name} Model"
+  
+  # Swap the statistical model number and output folder name in the master file
+  sed -e "s/set fmri(mixed_yn) .*/set fmri(mixed_yn) ${stat_code}/g" \
+      -e "s/Flanker_Level3_cope3_master/Flanker_Level3_cope3_${stat_name}/g" \
+      design_level3_cope3_master.fsf > design_level3_cope3_${stat_name}.fsf
+      
+  echo "Starting FEAT for ${stat_name}..."
+  
+  # Run the FSL FEAT analysis using the newly generated design file
+  feat design_level3_cope3_${stat_name}.fsf
+  
+done
+
+echo "======================================================="
+echo "All 5 statistical models for Cope 3 have been launched!"

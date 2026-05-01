@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Loop through the remaining FSL thresholding codes:
+# 0 = None, 1 = Uncorrected, 2 = Voxel
+# (Skipping 3 = Cluster, since you already ran it!)
+
+for thresh_code in 0 1 2; do
+  
+  # Assign a readable name for the output folder
+  if [ $thresh_code -eq 0 ]; then
+    thresh_name="None"
+  elif [ $thresh_code -eq 1 ]; then
+    thresh_name="Uncorrected"
+  elif [ $thresh_code -eq 2 ]; then
+    thresh_name="Voxel"
+  fi
+  
+  echo "======================================================="
+  echo "Preparing FLAME 1 analysis using Thresholding: ${thresh_name}"
+  
+  # 1. Changes the thresholding type to the current loop number
+  # 2. Ensures the statistical model is set to 2 (FLAME 1)
+  # 3. Changes the output directory name so they do not overwrite
+  sed -e "s/set fmri(thresh) .*/set fmri(thresh) ${thresh_code}/g" \
+      -e "s/set fmri(mixed_yn) .*/set fmri(mixed_yn) 2/g" \
+      -e "s/Flanker_Level3_cope3_master/Flanker_Level3_cope3_FLAME1_${thresh_name}/g" \
+      design_level3_cope3_master.fsf > design_level3_cope3_FLAME1_${thresh_name}.fsf
+      
+  echo "Starting FEAT for Thresholding: ${thresh_name}..."
+  
+  # Run the newly generated design file
+  feat design_level3_cope3_FLAME1_${thresh_name}.fsf
+  
+done
+
+echo "======================================================="
+echo "All 3 thresholding methods for FLAME 1 have been successfully launched!"
