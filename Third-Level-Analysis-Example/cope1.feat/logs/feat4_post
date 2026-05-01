@@ -1,0 +1,22 @@
+</pre><hr>Post-stats<br><pre>
+
+/home/raghad/fsl/bin/fslmaths stats/zstat1 -mas mask thresh_zstat1
+
+echo 240801 > thresh_zstat1.vol
+zstat1: DLH=0.0796398 VOLUME=240801 RESELS=58.9271
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat1 -t 3.1 --othresh=thresh_zstat1 -o cluster_mask_zstat1 --connectivity=26 --mm --olmax=lmax_zstat1_std.txt --scalarname=Z -p 0.05 -d 0.0796398 --volume=240801 -c stats/cope1 > cluster_zstat1_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat1 -std
+
+/home/raghad/fsl/bin/fslstats thresh_zstat1 -l 0.0001 -R 2>/dev/null
+3.100165 4.322865 
+Rendering using zmin=3.100165 zmax=4.322865
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat1 3.100165 4.322865 rendered_thresh_zstat1
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat1 -S 2 750 rendered_thresh_zstat1.png
+
+/bin/cp /home/raghad/fsl/etc/luts/ramp.gif .ramp.gif
+
+mkdir -p tsplot ; /home/raghad/fsl/bin/tsplot . -f filtered_func_data -o tsplot

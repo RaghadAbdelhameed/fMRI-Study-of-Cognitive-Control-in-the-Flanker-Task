@@ -1,0 +1,422 @@
+</pre><hr>Post-stats<br><pre>
+
+/home/raghad/fsl/bin/fslmaths stats/zstat1 -mas mask thresh_zstat1
+
+echo 240801 > thresh_zstat1.vol
+zstat1: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat2 -mas mask thresh_zstat2
+
+echo 240801 > thresh_zstat2.vol
+zstat2: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat3 -mas mask thresh_zstat3
+
+echo 240801 > thresh_zstat3.vol
+zstat3: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat4 -mas mask thresh_zstat4
+
+echo 240801 > thresh_zstat4.vol
+zstat4: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat5 -mas mask thresh_zstat5
+
+echo 240801 > thresh_zstat5.vol
+zstat5: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat6 -mas mask thresh_zstat6
+
+echo 240801 > thresh_zstat6.vol
+zstat6: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat7 -mas mask thresh_zstat7
+
+echo 240801 > thresh_zstat7.vol
+zstat7: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat8 -mas mask thresh_zstat8
+
+echo 240801 > thresh_zstat8.vol
+zstat8: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat9 -mas mask thresh_zstat9
+
+echo 240801 > thresh_zstat9.vol
+zstat9: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat10 -mas mask thresh_zstat10
+
+echo 240801 > thresh_zstat10.vol
+zstat10: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat11 -mas mask thresh_zstat11
+
+echo 240801 > thresh_zstat11.vol
+zstat11: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat12 -mas mask thresh_zstat12
+
+echo 240801 > thresh_zstat12.vol
+zstat12: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat13 -mas mask thresh_zstat13
+
+echo 240801 > thresh_zstat13.vol
+zstat13: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat14 -mas mask thresh_zstat14
+
+echo 240801 > thresh_zstat14.vol
+zstat14: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat15 -mas mask thresh_zstat15
+
+echo 240801 > thresh_zstat15.vol
+zstat15: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat16 -mas mask thresh_zstat16
+
+echo 240801 > thresh_zstat16.vol
+zstat16: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat17 -mas mask thresh_zstat17
+
+echo 240801 > thresh_zstat17.vol
+zstat17: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat18 -mas mask thresh_zstat18
+
+echo 240801 > thresh_zstat18.vol
+zstat18: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat19 -mas mask thresh_zstat19
+
+echo 240801 > thresh_zstat19.vol
+zstat19: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat20 -mas mask thresh_zstat20
+
+echo 240801 > thresh_zstat20.vol
+zstat20: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat21 -mas mask thresh_zstat21
+
+echo 240801 > thresh_zstat21.vol
+zstat21: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat22 -mas mask thresh_zstat22
+
+echo 240801 > thresh_zstat22.vol
+zstat22: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat23 -mas mask thresh_zstat23
+
+echo 240801 > thresh_zstat23.vol
+zstat23: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat24 -mas mask thresh_zstat24
+
+echo 240801 > thresh_zstat24.vol
+zstat24: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat25 -mas mask thresh_zstat25
+
+echo 240801 > thresh_zstat25.vol
+zstat25: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fslmaths stats/zstat26 -mas mask thresh_zstat26
+
+echo 240801 > thresh_zstat26.vol
+zstat26: DLH=0.0830541 VOLUME=240801 RESELS=56.6094
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat1 -t 3.1 --othresh=thresh_zstat1 -o cluster_mask_zstat1 --connectivity=26 --mm --olmax=lmax_zstat1_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope1 > cluster_zstat1_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat1 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat2 -t 3.1 --othresh=thresh_zstat2 -o cluster_mask_zstat2 --connectivity=26 --mm --olmax=lmax_zstat2_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope2 > cluster_zstat2_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat2 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat3 -t 3.1 --othresh=thresh_zstat3 -o cluster_mask_zstat3 --connectivity=26 --mm --olmax=lmax_zstat3_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope3 > cluster_zstat3_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat3 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat4 -t 3.1 --othresh=thresh_zstat4 -o cluster_mask_zstat4 --connectivity=26 --mm --olmax=lmax_zstat4_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope4 > cluster_zstat4_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat4 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat5 -t 3.1 --othresh=thresh_zstat5 -o cluster_mask_zstat5 --connectivity=26 --mm --olmax=lmax_zstat5_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope5 > cluster_zstat5_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat5 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat6 -t 3.1 --othresh=thresh_zstat6 -o cluster_mask_zstat6 --connectivity=26 --mm --olmax=lmax_zstat6_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope6 > cluster_zstat6_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat6 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat7 -t 3.1 --othresh=thresh_zstat7 -o cluster_mask_zstat7 --connectivity=26 --mm --olmax=lmax_zstat7_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope7 > cluster_zstat7_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat7 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat8 -t 3.1 --othresh=thresh_zstat8 -o cluster_mask_zstat8 --connectivity=26 --mm --olmax=lmax_zstat8_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope8 > cluster_zstat8_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat8 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat9 -t 3.1 --othresh=thresh_zstat9 -o cluster_mask_zstat9 --connectivity=26 --mm --olmax=lmax_zstat9_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope9 > cluster_zstat9_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat9 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat10 -t 3.1 --othresh=thresh_zstat10 -o cluster_mask_zstat10 --connectivity=26 --mm --olmax=lmax_zstat10_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope10 > cluster_zstat10_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat10 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat11 -t 3.1 --othresh=thresh_zstat11 -o cluster_mask_zstat11 --connectivity=26 --mm --olmax=lmax_zstat11_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope11 > cluster_zstat11_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat11 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat12 -t 3.1 --othresh=thresh_zstat12 -o cluster_mask_zstat12 --connectivity=26 --mm --olmax=lmax_zstat12_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope12 > cluster_zstat12_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat12 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat13 -t 3.1 --othresh=thresh_zstat13 -o cluster_mask_zstat13 --connectivity=26 --mm --olmax=lmax_zstat13_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope13 > cluster_zstat13_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat13 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat14 -t 3.1 --othresh=thresh_zstat14 -o cluster_mask_zstat14 --connectivity=26 --mm --olmax=lmax_zstat14_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope14 > cluster_zstat14_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat14 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat15 -t 3.1 --othresh=thresh_zstat15 -o cluster_mask_zstat15 --connectivity=26 --mm --olmax=lmax_zstat15_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope15 > cluster_zstat15_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat15 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat16 -t 3.1 --othresh=thresh_zstat16 -o cluster_mask_zstat16 --connectivity=26 --mm --olmax=lmax_zstat16_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope16 > cluster_zstat16_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat16 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat17 -t 3.1 --othresh=thresh_zstat17 -o cluster_mask_zstat17 --connectivity=26 --mm --olmax=lmax_zstat17_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope17 > cluster_zstat17_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat17 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat18 -t 3.1 --othresh=thresh_zstat18 -o cluster_mask_zstat18 --connectivity=26 --mm --olmax=lmax_zstat18_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope18 > cluster_zstat18_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat18 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat19 -t 3.1 --othresh=thresh_zstat19 -o cluster_mask_zstat19 --connectivity=26 --mm --olmax=lmax_zstat19_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope19 > cluster_zstat19_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat19 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat20 -t 3.1 --othresh=thresh_zstat20 -o cluster_mask_zstat20 --connectivity=26 --mm --olmax=lmax_zstat20_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope20 > cluster_zstat20_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat20 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat21 -t 3.1 --othresh=thresh_zstat21 -o cluster_mask_zstat21 --connectivity=26 --mm --olmax=lmax_zstat21_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope21 > cluster_zstat21_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat21 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat22 -t 3.1 --othresh=thresh_zstat22 -o cluster_mask_zstat22 --connectivity=26 --mm --olmax=lmax_zstat22_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope22 > cluster_zstat22_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat22 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat23 -t 3.1 --othresh=thresh_zstat23 -o cluster_mask_zstat23 --connectivity=26 --mm --olmax=lmax_zstat23_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope23 > cluster_zstat23_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat23 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat24 -t 3.1 --othresh=thresh_zstat24 -o cluster_mask_zstat24 --connectivity=26 --mm --olmax=lmax_zstat24_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope24 > cluster_zstat24_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat24 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat25 -t 3.1 --othresh=thresh_zstat25 -o cluster_mask_zstat25 --connectivity=26 --mm --olmax=lmax_zstat25_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope25 > cluster_zstat25_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat25 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat26 -t 3.1 --othresh=thresh_zstat26 -o cluster_mask_zstat26 --connectivity=26 --mm --olmax=lmax_zstat26_std.txt --scalarname=Z -p 0.05 -d 0.0830541 --volume=240801 -c stats/cope26 > cluster_zstat26_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat26 -std
+
+/home/raghad/fsl/bin/fslstats thresh_zstat1 -l 0.0001 -R 2>/dev/null
+3.100374 4.766546 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat2 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat3 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat4 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat5 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat6 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat7 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat8 -l 0.0001 -R 2>/dev/null
+3.101130 4.276367 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat9 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat10 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat11 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat12 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat13 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat14 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat15 -l 0.0001 -R 2>/dev/null
+3.113511 4.433774 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat16 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat17 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat18 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat19 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat20 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat21 -l 0.0001 -R 2>/dev/null
+3.102792 4.443135 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat22 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat23 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat24 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat25 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat26 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+Rendering using zmin=3.100374 zmax=4.766546
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat1 3.100374 4.766546 rendered_thresh_zstat1
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat1 -S 2 750 rendered_thresh_zstat1.png
+
+/bin/cp /home/raghad/fsl/etc/luts/ramp.gif .ramp.gif
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat2 3.100374 4.766546 rendered_thresh_zstat2
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat2 -S 2 750 rendered_thresh_zstat2.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat3 3.100374 4.766546 rendered_thresh_zstat3
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat3 -S 2 750 rendered_thresh_zstat3.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat4 3.100374 4.766546 rendered_thresh_zstat4
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat4 -S 2 750 rendered_thresh_zstat4.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat5 3.100374 4.766546 rendered_thresh_zstat5
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat5 -S 2 750 rendered_thresh_zstat5.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat6 3.100374 4.766546 rendered_thresh_zstat6
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat6 -S 2 750 rendered_thresh_zstat6.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat7 3.100374 4.766546 rendered_thresh_zstat7
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat7 -S 2 750 rendered_thresh_zstat7.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat8 3.100374 4.766546 rendered_thresh_zstat8
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat8 -S 2 750 rendered_thresh_zstat8.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat9 3.100374 4.766546 rendered_thresh_zstat9
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat9 -S 2 750 rendered_thresh_zstat9.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat10 3.100374 4.766546 rendered_thresh_zstat10
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat10 -S 2 750 rendered_thresh_zstat10.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat11 3.100374 4.766546 rendered_thresh_zstat11
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat11 -S 2 750 rendered_thresh_zstat11.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat12 3.100374 4.766546 rendered_thresh_zstat12
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat12 -S 2 750 rendered_thresh_zstat12.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat13 3.100374 4.766546 rendered_thresh_zstat13
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat13 -S 2 750 rendered_thresh_zstat13.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat14 3.100374 4.766546 rendered_thresh_zstat14
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat14 -S 2 750 rendered_thresh_zstat14.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat15 3.100374 4.766546 rendered_thresh_zstat15
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat15 -S 2 750 rendered_thresh_zstat15.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat16 3.100374 4.766546 rendered_thresh_zstat16
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat16 -S 2 750 rendered_thresh_zstat16.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat17 3.100374 4.766546 rendered_thresh_zstat17
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat17 -S 2 750 rendered_thresh_zstat17.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat18 3.100374 4.766546 rendered_thresh_zstat18
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat18 -S 2 750 rendered_thresh_zstat18.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat19 3.100374 4.766546 rendered_thresh_zstat19
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat19 -S 2 750 rendered_thresh_zstat19.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat20 3.100374 4.766546 rendered_thresh_zstat20
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat20 -S 2 750 rendered_thresh_zstat20.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat21 3.100374 4.766546 rendered_thresh_zstat21
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat21 -S 2 750 rendered_thresh_zstat21.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat22 3.100374 4.766546 rendered_thresh_zstat22
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat22 -S 2 750 rendered_thresh_zstat22.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat23 3.100374 4.766546 rendered_thresh_zstat23
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat23 -S 2 750 rendered_thresh_zstat23.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat24 3.100374 4.766546 rendered_thresh_zstat24
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat24 -S 2 750 rendered_thresh_zstat24.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat25 3.100374 4.766546 rendered_thresh_zstat25
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat25 -S 2 750 rendered_thresh_zstat25.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat26 3.100374 4.766546 rendered_thresh_zstat26
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat26 -S 2 750 rendered_thresh_zstat26.png
+
+mkdir -p tsplot ; /home/raghad/fsl/bin/tsplot . -f filtered_func_data -o tsplot

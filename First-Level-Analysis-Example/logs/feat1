@@ -1,0 +1,26 @@
+
+/bin/cp /tmp/feat_foeh7wzo.fsf design.fsf
+
+mkdir .files;cp /home/raghad/fsl/doc/fsl.css .files;cp -r /home/raghad/fsl/doc/images .files/images
+
+/home/raghad/fsl/bin/fsl_sub -T 10 -l logs -N feat0_init   /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/run1sub4.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/run1sub4.feat -I 1 -init
+33242
+
+/home/raghad/fsl/bin/fsl_sub -T 44 -l logs -N feat2_pre -j 33242  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/run1sub4.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/run1sub4.feat -I 1 -prestats
+33518
+
+/home/raghad/fsl/bin/fsl_sub -T 1 -l logs -N feat5_stop -j 33518  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/run1sub4.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/run1sub4.feat -stop
+37246
+
+/bin/cp /tmp/feat_0zmyn1a1.fsf design.fsf
+
+/home/raghad/fsl/bin/feat_model design
+
+/home/raghad/fsl/bin/fsl_sub -T 2 -l logs -N feat3_film   /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/sub04-run1.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/sub04-run1.feat -I 1 -stats
+5709
+
+/home/raghad/fsl/bin/fsl_sub -T 119 -l logs -N feat4_post -j 5709  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/sub04-run1.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/sub04-run1.feat -poststats 0 
+6154
+
+/home/raghad/fsl/bin/fsl_sub -T 1 -l logs -N feat5_stop -j 5709,6154  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/sub04-run1.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/sub04-run1.feat -stop
+7495

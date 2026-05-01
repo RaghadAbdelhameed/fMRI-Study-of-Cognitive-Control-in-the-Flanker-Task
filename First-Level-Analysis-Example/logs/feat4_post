@@ -1,0 +1,66 @@
+</pre><hr>Post-stats<br><pre>
+
+/home/raghad/fsl/bin/fslmaths stats/zstat1 -mas mask thresh_zstat1
+
+echo 44040 > thresh_zstat1.vol
+zstat1: DLH=1.10249 VOLUME=44040 RESELS=4.19538
+
+/home/raghad/fsl/bin/fslmaths stats/zstat2 -mas mask thresh_zstat2
+
+echo 44040 > thresh_zstat2.vol
+zstat2: DLH=1.10249 VOLUME=44040 RESELS=4.19538
+
+/home/raghad/fsl/bin/fslmaths stats/zstat3 -mas mask thresh_zstat3
+
+echo 44040 > thresh_zstat3.vol
+zstat3: DLH=1.10249 VOLUME=44040 RESELS=4.19538
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat1 -t 3.1 --othresh=thresh_zstat1 -o cluster_mask_zstat1 --connectivity=26  --olmax=lmax_zstat1.txt --scalarname=Z -p 0.05 -d 1.10249 --volume=44040 -c stats/cope1 > cluster_zstat1.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat1 
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat2 -t 3.1 --othresh=thresh_zstat2 -o cluster_mask_zstat2 --connectivity=26  --olmax=lmax_zstat2.txt --scalarname=Z -p 0.05 -d 1.10249 --volume=44040 -c stats/cope2 > cluster_zstat2.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat2 
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat3 -t 3.1 --othresh=thresh_zstat3 -o cluster_mask_zstat3 --connectivity=26  --olmax=lmax_zstat3.txt --scalarname=Z -p 0.05 -d 1.10249 --volume=44040 -c stats/cope3 > cluster_zstat3.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat3 
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat1 -c stats/cope1 -t 3.1  -p 0.05 -d 1.10249 --volume=44040 -x reg/example_func2standard.mat --stdvol=reg/standard --mm --connectivity=26 --olmax=lmax_zstat1_std.txt --scalarname=Z  > cluster_zstat1_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat1 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat2 -c stats/cope2 -t 3.1  -p 0.05 -d 1.10249 --volume=44040 -x reg/example_func2standard.mat --stdvol=reg/standard --mm --connectivity=26 --olmax=lmax_zstat2_std.txt --scalarname=Z  > cluster_zstat2_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat2 -std
+
+/home/raghad/fsl/bin/fsl-cluster -i thresh_zstat3 -c stats/cope3 -t 3.1  -p 0.05 -d 1.10249 --volume=44040 -x reg/example_func2standard.mat --stdvol=reg/standard --mm --connectivity=26 --olmax=lmax_zstat3_std.txt --scalarname=Z  > cluster_zstat3_std.txt
+
+/home/raghad/fsl/bin/cluster2html . cluster_zstat3 -std
+
+/home/raghad/fsl/bin/fslstats thresh_zstat1 -l 0.0001 -R 2>/dev/null
+3.100192 9.455455 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat2 -l 0.0001 -R 2>/dev/null
+3.100258 8.207457 
+
+/home/raghad/fsl/bin/fslstats thresh_zstat3 -l 0.0001 -R 2>/dev/null
+0.000000 0.000000 
+Rendering using zmin=3.100192 zmax=9.455455
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat1 3.100192 9.455455 rendered_thresh_zstat1
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat1 -A 750 rendered_thresh_zstat1.png
+
+/bin/cp /home/raghad/fsl/etc/luts/ramp.gif .ramp.gif
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat2 3.100192 9.455455 rendered_thresh_zstat2
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat2 -A 750 rendered_thresh_zstat2.png
+
+/home/raghad/fsl/bin/overlay 1 0 example_func -a thresh_zstat3 3.100192 9.455455 rendered_thresh_zstat3
+
+/home/raghad/fsl/bin/slicer rendered_thresh_zstat3 -A 750 rendered_thresh_zstat3.png
+
+mkdir -p tsplot ; /home/raghad/fsl/bin/tsplot . -f filtered_func_data -o tsplot

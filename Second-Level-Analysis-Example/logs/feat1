@@ -1,0 +1,57 @@
+
+/bin/cp /tmp/feat_6az7_hns.fsf design.fsf
+
+/home/raghad/fsl/bin/feat_model design
+
+mkdir .files;cp /home/raghad/fsl/doc/fsl.css .files;cp -r /home/raghad/fsl/doc/images .files/images
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat2_pre   /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat -gfeatprep
+1080
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat3a_flame -j 1080  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope1.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope1.feat -I 1 -flame1
+14479
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat3b_flame -j 14479 -t ./.flame
+15249
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat3c_flame -j 15249  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope1.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope1.feat -flame3
+15547
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat4_post -j 15547  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope1.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope1.feat -poststats 1
+19885
+
+/home/raghad/fsl/bin/fsl_sub -T 1 -l logs -N feat5_stop -j 19885  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope1.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope1.feat -stop
+24910
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat3a_flame -j 1080  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope2.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope2.feat -I 2 -flame1
+25191
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat3b_flame -j 25191 -t ./.flame
+25965
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat3c_flame -j 25965  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope2.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope2.feat -flame3
+26263
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat4_post -j 26263  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope2.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope2.feat -poststats 1
+30599
+
+/home/raghad/fsl/bin/fsl_sub -T 1 -l logs -N feat5_stop -j 30599  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope2.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope2.feat -stop
+35624
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat3a_flame -j 1080  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope3.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope3.feat -I 3 -flame1
+35905
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat3b_flame -j 35905 -t ./.flame
+36676
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat3c_flame -j 36676  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope3.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope3.feat -flame3
+36972
+
+/home/raghad/fsl/bin/fsl_sub -T 60 -l logs -N feat4_post -j 36972  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope3.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope3.feat -poststats 1
+41277
+
+/home/raghad/fsl/bin/fsl_sub -T 1 -l logs -N feat5_stop -j 41277  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope3.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope3.feat -stop
+46289
+
+/home/raghad/fsl/bin/fsl_sub -T 1 -l logs -N feat5_stop -j 24910,35624,46289  /home/raghad/fsl/bin/feat /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat/cope3.feat/design.fsf -D /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/Flanker_2ndLevel.gfeat -stop
+46428

@@ -1,0 +1,6 @@
+</pre><hr>Initialisation<br><pre>
+
+/home/raghad/fsl/bin/fslmaths /mnt/d/Third-Year/Second-Term/Flanker-task-dataset/ds000102-download/sub-04/func/sub-04_task-flanker_run-1_bold prefiltered_func_data -odt float
+Total original volumes = 146
+
+/home/raghad/fsl/bin/fslroi prefiltered_func_data example_func 73 1
