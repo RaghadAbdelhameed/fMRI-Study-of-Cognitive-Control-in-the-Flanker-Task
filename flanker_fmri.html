@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flanker Task — fMRI Analysis of Cognitive Control</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --bg2: #111318;
+    --bg3: #181c24;
+    --surface: #1e2330;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8eaf0;
+    --muted: #7a8094;
+    --accent: #5b8fff;
+    --accent2: #ff6b4a;
+    --congruent: #40c890;
+    --incongruent: #ff5f6d;
+    --bold: #c084fc;
+    --gold: #f0b429;
+    --font: 'Space Grotesk', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(10,12,15,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; gap: 2rem; height: 56px; }
+  nav .logo { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+  nav a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; cursor: pointer; }
+  nav a:hover { color: var(--text); }
+  nav .pill { margin-left: auto; background: rgba(91,143,255,0.12); color: var(--accent); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(91,143,255,0.2); }
+
+  /* HERO */
+  .hero { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; padding: 5rem 2rem 4rem; max-width: 900px; margin: 0 auto; }
+  .hero-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px; }
+  .hero-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+  h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  h1 span { color: var(--accent); }
+  .hero-desc { font-size: 17px; color: var(--muted); max-width: 580px; line-height: 1.7; margin-bottom: 2.5rem; }
+  .hero-stats { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat-val { font-size: 1.8rem; font-weight: 700; font-family: var(--mono); color: var(--text); }
+  .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; max-width: 960px; margin: 0 auto; }
+  section + section { border-top: 1px solid var(--border); }
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  h2 { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+  p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+  p strong { color: var(--text); }
+
+  /* LIVE TASK DEMO */
+  .task-demo { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 3rem 2rem; text-align: center; margin: 2rem 0; position: relative; overflow: hidden; }
+  .task-demo::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(91,143,255,0.04) 0%, transparent 70%); pointer-events: none; }
+  .task-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border2); border-radius: 20px; padding: 6px 14px; font-size: 12px; margin-bottom: 2rem; }
+  .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--congruent); }
+  .badge-dot.inc { background: var(--incongruent); }
+  #task-stage { font-size: 14px; color: var(--muted); margin-bottom: 1rem; min-height: 24px; }
+  #fixation { font-size: 3rem; font-weight: 300; color: var(--text); min-height: 60px; display: flex; align-items: center; justify-content: center; }
+  #arrows { font-size: 2.8rem; letter-spacing: 0.15em; min-height: 60px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 700; transition: color 0.3s; }
+  .task-buttons { display: flex; justify-content: center; gap: 1.5rem; margin: 2rem 0 1rem; }
+  .task-btn { background: var(--surface); border: 1px solid var(--border2); color: var(--text); font-family: var(--font); font-size: 14px; font-weight: 500; padding: 10px 28px; border-radius: 8px; cursor: pointer; transition: all .15s; letter-spacing: 0.04em; }
+  .task-btn:hover { background: var(--bg3); border-color: rgba(255,255,255,0.2); }
+  .task-btn:active { transform: scale(0.97); }
+  .task-btn.left { border-color: rgba(91,143,255,0.4); }
+  .task-btn.right { border-color: rgba(91,143,255,0.4); }
+  #task-feedback { font-size: 15px; font-weight: 600; min-height: 28px; transition: color .2s; }
+  #task-feedback.correct { color: var(--congruent); }
+  #task-feedback.wrong { color: var(--incongruent); }
+  #task-rt { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 4px; min-height: 20px; }
+  .task-progress { display: flex; gap: 6px; justify-content: center; margin-top: 1.5rem; }
+  .task-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background .3s; }
+  .task-dot.done { background: var(--accent); }
+  .task-dot.wrong { background: var(--incongruent); }
+  .start-btn { background: linear-gradient(135deg, var(--accent), #8b5cf6); border: none; color: white; font-family: var(--font); font-size: 15px; font-weight: 600; padding: 12px 36px; border-radius: 10px; cursor: pointer; transition: all .2s; letter-spacing: 0.04em; }
+  .start-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(91,143,255,0.3); }
+
+  /* RESULTS TABLE */
+  .results-panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: none; }
+  .results-panel.visible { display: block; }
+  .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+  .result-card { background: var(--surface); border-radius: 10px; padding: 1.25rem; text-align: center; }
+  .result-card .rc-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+  .result-card .rc-val { font-size: 1.6rem; font-weight: 700; font-family: var(--mono); }
+  .result-card .rc-sub { font-size: 11px; margin-top: 4px; }
+  .result-card.cong .rc-label { color: var(--congruent); }
+  .result-card.cong .rc-val { color: var(--congruent); }
+  .result-card.inc .rc-label { color: var(--incongruent); }
+  .result-card.inc .rc-val { color: var(--incongruent); }
+  .flanker-effect { text-align: center; background: rgba(240,180,41,0.08); border: 1px solid rgba(240,180,41,0.2); border-radius: 10px; padding: 1.25rem; }
+  .flanker-effect .fe-val { font-size: 1.8rem; font-weight: 700; font-family: var(--mono); color: var(--gold); }
+  .flanker-effect .fe-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* CONDITIONS COMPARISON */
+  .conditions { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
+  .condition-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; }
+  .condition-card.cong { border-top: 2px solid var(--congruent); }
+  .condition-card.inc { border-top: 2px solid var(--incongruent); }
+  .cond-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .cond-title.cong { color: var(--congruent); }
+  .cond-title.inc { color: var(--incongruent); }
+  .arrow-display { font-size: 2rem; letter-spacing: 0.15em; font-family: var(--mono); font-weight: 700; margin: 1rem 0; padding: 1rem; background: var(--surface); border-radius: 8px; text-align: center; }
+  .center-arrow { position: relative; display: inline; }
+  .center-arrow .highlight { color: var(--gold); text-shadow: 0 0 12px rgba(240,180,41,0.4); }
+  .cong-arrow { color: var(--congruent); }
+  .inc-arrow { color: var(--incongruent); }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 2rem 0; }
+  .tl-item { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; align-items: flex-start; }
+  .tl-dot { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .tl-line { width: 1px; background: var(--border); position: absolute; left: 17px; top: 36px; bottom: 0; }
+  .tl-content { flex: 1; }
+  .tl-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  .tl-time { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-bottom: 6px; }
+  .tl-desc { font-size: 14px; color: var(--muted); }
+
+  /* SCANNER PARAMS */
+  .params-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; }
+  .param-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+  .param-name { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 6px; }
+  .param-val { font-family: var(--mono); font-size: 1rem; font-weight: 500; color: var(--text); }
+
+  /* FMRI VIZ */
+  .bold-viz { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; margin: 2rem 0; }
+  .bold-controls { display: flex; gap: 1.5rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .ctrl-group { display: flex; flex-direction: column; gap: 6px; }
+  .ctrl-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .ctrl-group input[type=range] { accent-color: var(--accent); width: 160px; }
+  .ctrl-group select { background: var(--surface); border: 1px solid var(--border2); color: var(--text); font-family: var(--font); font-size: 13px; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+  canvas#boldChart { width: 100%; height: 240px; }
+
+  /* DATA PIPELINE */
+  .pipeline { display: flex; gap: 0; margin: 2rem 0; overflow-x: auto; padding-bottom: 0.5rem; }
+  .pipe-step { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1rem; min-width: 130px; text-align: center; position: relative; flex-shrink: 0; }
+  .pipe-step::after { content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 16px; z-index: 1; }
+  .pipe-step:last-child::after { display: none; }
+  .pipe-icon { font-size: 1.5rem; margin-bottom: 6px; }
+  .pipe-title { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .pipe-sub { font-size: 10px; color: var(--muted); line-height: 1.4; }
+  .pipe-steps-wrap { display: flex; gap: 8px; align-items: center; overflow-x: auto; }
+
+  /* INTERACTIVE HRF */
+  .hrf-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; margin: 2rem 0; }
+
+  /* QUIZ */
+  .quiz-section { background: linear-gradient(135deg, rgba(91,143,255,0.05), rgba(192,132,252,0.05)); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; margin: 2rem 0; }
+  .quiz-q { font-size: 16px; font-weight: 500; margin-bottom: 1.5rem; }
+  .quiz-opts { display: flex; flex-direction: column; gap: 10px; }
+  .quiz-opt { background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 12px 16px; cursor: pointer; font-size: 14px; transition: all .15s; text-align: left; color: var(--text); font-family: var(--font); }
+  .quiz-opt:hover { background: var(--bg3); border-color: rgba(255,255,255,0.2); }
+  .quiz-opt.correct { border-color: var(--congruent); background: rgba(64,200,144,0.08); color: var(--congruent); }
+  .quiz-opt.wrong { border-color: var(--incongruent); background: rgba(255,95,109,0.08); color: var(--incongruent); }
+  .quiz-feedback { margin-top: 1rem; font-size: 14px; min-height: 24px; line-height: 1.6; }
+  .quiz-next { background: var(--accent); border: none; color: white; font-family: var(--font); font-size: 13px; font-weight: 600; padding: 8px 20px; border-radius: 6px; cursor: pointer; margin-top: 1rem; transition: all .15s; display: none; }
+  .quiz-next.show { display: inline-block; }
+  .quiz-progress { display: flex; gap: 6px; margin-bottom: 1.5rem; }
+  .quiz-pip { width: 28px; height: 4px; border-radius: 2px; background: var(--border); transition: background .3s; }
+  .quiz-pip.done { background: var(--accent); }
+  .quiz-pip.current { background: var(--accent); opacity: 0.5; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 3rem 2rem; max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
+  .footer-info { font-size: 13px; color: var(--muted); }
+  .footer-info strong { color: var(--text); }
+  .cite { font-size: 11px; color: var(--muted); font-family: var(--mono); line-height: 1.6; max-width: 480px; }
+  .cite strong { color: var(--muted); }
+
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; }
+  .tag.c { background: rgba(64,200,144,0.12); color: var(--congruent); }
+  .tag.i { background: rgba(255,95,109,0.12); color: var(--incongruent); }
+  .tag.b { background: rgba(192,132,252,0.12); color: var(--bold); }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .fade-in { animation: fadeIn .4s ease forwards; }
+  .blink { animation: pulse 1s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Flanker fMRI</div>
+  <a onclick="scroll('#task')">Try Task</a>
+  <a onclick="scroll('#design')">Design</a>
+  <a onclick="scroll('#fmri')">fMRI</a>
+  <a onclick="scroll('#analysis')">Analysis</a>
+  <a onclick="scroll('#quiz')">Quiz</a>
+  <span class="pill">ds102 · NYU</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Cognitive Neuroscience · fMRI</div>
+  <h1>Cognitive Control<br>& the <span>Flanker Task</span></h1>
+  <p class="hero-desc">An interactive guide to the NYU Slow Flanker dataset — from task design and behavioral effects to BOLD signal analysis and cognitive control mechanisms.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-val">26</div>
+      <div class="stat-label">Participants</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">3T</div>
+      <div class="stat-label">Scanner Field</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">48</div>
+      <div class="stat-label">Trials/Block</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">2</div>
+      <div class="stat-label">Conditions</div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE TASK -->
+<section id="task">
+  <div class="section-label">Interactive Demo</div>
+  <h2>Experience the Flanker Task</h2>
+  <p>Respond to the <strong>direction of the central arrow only</strong>. Ignore the flanking arrows. This is exactly the task performed by the 26 participants in the NYU dataset.</p>
+
+  <div class="task-demo">
+    <div id="task-inner">
+      <p style="color:var(--muted); margin-bottom:1.5rem; font-size:15px;">Press the button matching the direction of the <strong style="color:var(--gold)">center arrow</strong>.</p>
+      <button class="start-btn" onclick="startTask()">Start Task Demo</button>
+    </div>
+    <div id="task-running" style="display:none">
+      <div style="display:flex; gap:12px; justify-content:center; margin-bottom:1.5rem;">
+        <div class="task-badge"><span class="badge-dot" id="cong-badge"></span><span id="trial-type">—</span></div>
+        <div class="task-badge" style="font-family:var(--mono); font-size:11px; color:var(--muted)">Trial <span id="trial-num">1</span>/10</div>
+      </div>
+      <div id="task-stage">Get ready...</div>
+      <div id="fixation" class="blink" style="display:none">+</div>
+      <div id="arrows" style="display:none"></div>
+      <div class="task-buttons" id="task-btns" style="display:none">
+        <button class="task-btn left" onclick="respond('left')">◀ Left</button>
+        <button class="task-btn right" onclick="respond('right')">Right ▶</button>
+      </div>
+      <div id="task-feedback"></div>
+      <div id="task-rt"></div>
+      <div class="task-progress" id="task-progress"></div>
+    </div>
+    <div id="task-done" style="display:none"></div>
+  </div>
+
+  <div class="results-panel" id="results-panel">
+    <h3 style="margin-bottom:1rem;">Your Results</h3>
+    <div class="results-grid">
+      <div class="result-card cong">
+        <div class="rc-label">Congruent RT</div>
+        <div class="rc-val" id="res-cong-rt">—</div>
+        <div class="rc-sub" style="color:var(--muted)">avg reaction time</div>
+      </div>
+      <div class="result-card inc">
+        <div class="rc-label">Incongruent RT</div>
+        <div class="rc-val" id="res-inc-rt">—</div>
+        <div class="rc-sub" style="color:var(--muted)">avg reaction time</div>
+      </div>
+    </div>
+    <div class="flanker-effect">
+      <div class="fe-val" id="res-effect">—</div>
+      <div class="fe-label">Flanker Effect (Incongruent − Congruent RT)</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:8px;" id="res-interp"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TASK DESIGN -->
+<section id="design">
+  <div class="section-label">Experimental Design</div>
+  <h2>Task Structure & Conditions</h2>
+  <p>The Flanker task probes <strong>cognitive control</strong> — your brain's ability to suppress irrelevant, interfering stimuli while focusing on the goal-relevant one.</p>
+
+  <div class="conditions">
+    <div class="condition-card cong">
+      <div class="cond-title cong">Congruent <span class="tag c">Easy</span></div>
+      <p style="font-size:14px; color:var(--muted);">Flanking arrows point in the <strong style="color:var(--congruent)">same direction</strong> as the central arrow. No conflict — fast and accurate.</p>
+      <div class="arrow-display cong-arrow">
+        &gt; &gt; <span class="center-arrow"><span class="highlight">&gt;</span></span> &gt; &gt;
+      </div>
+      <div style="font-size:13px; color:var(--muted);">Correct response: <strong style="color:var(--congruent)">Right ▶</strong></div>
+    </div>
+    <div class="condition-card inc">
+      <div class="cond-title inc">Incongruent <span class="tag i">Hard</span></div>
+      <p style="font-size:14px; color:var(--muted);">Flanking arrows point in the <strong style="color:var(--incongruent)">opposite direction</strong>. Conflict slows responses and increases errors.</p>
+      <div class="arrow-display inc-arrow">
+        &gt; &gt; <span class="center-arrow"><span class="highlight">&lt;</span></span> &gt; &gt;
+      </div>
+      <div style="font-size:13px; color:var(--muted);">Correct response: <strong style="color:var(--incongruent)">Left ◀</strong></div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2rem;">Trial Sequence Timeline</h3>
+  <p>Each trial follows a fixed sequence with a jittered inter-trial interval — critical for separating BOLD responses in fMRI.</p>
+
+  <div class="timeline" style="padding-left:0">
+    <div class="tl-item">
+      <div class="tl-dot" style="background:rgba(91,143,255,0.15); border:1px solid var(--accent); color:var(--accent);">1</div>
+      <div class="tl-content">
+        <div class="tl-title">Fixation Cross</div>
+        <div class="tl-time">500 ms</div>
+        <div class="tl-desc">A white "+" appears at center screen. Subject focuses gaze on the fixation point, preparing attention.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:rgba(240,180,41,0.15); border:1px solid var(--gold); color:var(--gold);">2</div>
+      <div class="tl-content">
+        <div class="tl-title">Flanker Stimulus</div>
+        <div class="tl-time">2000 ms</div>
+        <div class="tl-desc">5-arrow array presented. Subject presses left or right button. Either congruent (→→→→→) or incongruent (→→←→→) array shown.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:rgba(192,132,252,0.15); border:1px solid var(--bold); color:var(--bold);">3</div>
+      <div class="tl-content">
+        <div class="tl-title">Jittered ITI</div>
+        <div class="tl-time">8,000 – 14,000 ms (mean 12 s)</div>
+        <div class="tl-desc">Inter-trial interval varies randomly (8,9,10,11,12,13,14 s). Jittering decorrelates the BOLD HRF across trials, enabling deconvolution in GLM analysis.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="params-grid">
+    <div class="param-item">
+      <div class="param-name">Design Type</div>
+      <div class="param-val">Event-related (slow)</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Trials per Block</div>
+      <div class="param-val">12 congruent + 12 incongruent</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Blocks per Subject</div>
+      <div class="param-val">2 × 5 min blocks</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Total Participants</div>
+      <div class="param-val">26 healthy adults</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Pseudorandom Order</div>
+      <div class="param-val">Counterbalanced</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Response Mode</div>
+      <div class="param-val">2-button response pad</div>
+    </div>
+  </div>
+</section>
+
+<!-- fMRI SECTION -->
+<section id="fmri">
+  <div class="section-label">Neuroimaging</div>
+  <h2>fMRI Data Acquisition</h2>
+  <p>Data were acquired on a <strong>Siemens Allegra 3T scanner</strong> at the NYU Center for Brain Imaging, using standard EPI sequences optimized for BOLD contrast.</p>
+
+  <div class="params-grid">
+    <div class="param-item">
+      <div class="param-name">Scanner</div>
+      <div class="param-val">Siemens Allegra 3.0T</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Repetition Time (TR)</div>
+      <div class="param-val">2000 ms</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Echo Time (TE)</div>
+      <div class="param-val">30 ms</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Flip Angle</div>
+      <div class="param-val">80°</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Slices</div>
+      <div class="param-val">40 axial slices</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Matrix / FOV</div>
+      <div class="param-val">64×64 / 192 mm</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Voxel Size</div>
+      <div class="param-val">3×3×4 mm</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Volumes/Block</div>
+      <div class="param-val">146 EPI volumes</div>
+    </div>
+    <div class="param-item">
+      <div class="param-name">Structural (T1)</div>
+      <div class="param-val">MPRAGE, 176 slices, 1mm isotropic</div>
+    </div>
+  </div>
+
+  <h3>The BOLD Signal & HRF</h3>
+  <p>fMRI measures the <strong>Blood-Oxygen-Level-Dependent (BOLD)</strong> signal — an indirect proxy for neural activity. When neurons fire, local blood flow increases, raising the ratio of oxygenated to deoxygenated hemoglobin, which increases the MR signal.</p>
+
+  <div class="hrf-section">
+    <h3 style="margin-bottom: 0.5rem;">Hemodynamic Response Function (HRF)</h3>
+    <p style="font-size:14px; color:var(--muted); margin-bottom:1.5rem;">The BOLD response peaks ~5-6 seconds after a neural event and returns to baseline over ~20 seconds. Adjust the parameters to see how conditions differ.</p>
+    <div class="bold-controls">
+      <div class="ctrl-group">
+        <span class="ctrl-label">Neural amplitude</span>
+        <input type="range" id="amp-ctrl" min="0.5" max="2" step="0.1" value="1" oninput="drawHRF()">
+      </div>
+      <div class="ctrl-group">
+        <span class="ctrl-label">Peak latency (s)</span>
+        <input type="range" id="lat-ctrl" min="4" max="8" step="0.5" value="6" oninput="drawHRF()">
+      </div>
+      <div class="ctrl-group">
+        <span class="ctrl-label">View</span>
+        <select id="hrf-view" onchange="drawHRF()">
+          <option value="both">Both conditions</option>
+          <option value="cong">Congruent only</option>
+          <option value="inc">Incongruent only</option>
+          <option value="contrast">Contrast (Inc − Cong)</option>
+        </select>
+      </div>
+    </div>
+    <canvas id="hrfCanvas" style="width:100%; height:220px;"></canvas>
+    <div style="display:flex; gap:2rem; margin-top:1rem; font-size:12px; color:var(--muted);">
+      <span style="display:flex; align-items:center; gap:6px;"><span style="width:20px;height:2px;background:var(--congruent);display:inline-block;border-radius:1px"></span> Congruent</span>
+      <span style="display:flex; align-items:center; gap:6px;"><span style="width:20px;height:2px;background:var(--incongruent);display:inline-block;border-radius:1px"></span> Incongruent</span>
+      <span style="display:flex; align-items:center; gap:6px;"><span style="width:20px;height:2px;background:var(--gold);display:inline-block;border-radius:1px;border:1px dashed var(--gold)"></span> Contrast</span>
+    </div>
+  </div>
+</section>
+
+<!-- ANALYSIS -->
+<section id="analysis">
+  <div class="section-label">Statistical Analysis</div>
+  <h2>GLM Analysis Pipeline</h2>
+  <p>The standard analysis contrasts BOLD activity between Incongruent and Congruent conditions using a <strong>General Linear Model (GLM)</strong>, revealing brain regions supporting cognitive control.</p>
+
+  <div class="pipe-steps-wrap" style="overflow-x:auto; padding-bottom:1rem; margin-bottom:2rem;">
+    <div class="pipe-step" style="cursor:pointer;" onclick="showStep(0)">
+      <div class="pipe-icon">📦</div>
+      <div class="pipe-title">Raw Data</div>
+      <div class="pipe-sub">BIDS-format NIfTI + events TSV</div>
+    </div>
+    <span style="color:var(--muted); font-size:20px; flex-shrink:0; align-self:center;">→</span>
+    <div class="pipe-step" onclick="showStep(1)">
+      <div class="pipe-icon">🔧</div>
+      <div class="pipe-title">Preprocessing</div>
+      <div class="pipe-sub">Realignment, coregistration, normalization</div>
+    </div>
+    <span style="color:var(--muted); font-size:20px; flex-shrink:0; align-self:center;">→</span>
+    <div class="pipe-step" onclick="showStep(2)">
+      <div class="pipe-icon">📐</div>
+      <div class="pipe-title">1st Level GLM</div>
+      <div class="pipe-sub">HRF convolution per subject</div>
+    </div>
+    <span style="color:var(--muted); font-size:20px; flex-shrink:0; align-self:center;">→</span>
+    <div class="pipe-step" onclick="showStep(3)">
+      <div class="pipe-icon">📊</div>
+      <div class="pipe-title">Contrast</div>
+      <div class="pipe-sub">Inc > Cong t-map</div>
+    </div>
+    <span style="color:var(--muted); font-size:20px; flex-shrink:0; align-self:center;">→</span>
+    <div class="pipe-step" onclick="showStep(4)">
+      <div class="pipe-icon">🧠</div>
+      <div class="pipe-title">Group Level</div>
+      <div class="pipe-sub">Random effects over 26 subjects</div>
+    </div>
+    <span style="color:var(--muted); font-size:20px; flex-shrink:0; align-self:center;">→</span>
+    <div class="pipe-step" onclick="showStep(5)">
+      <div class="pipe-icon">🗺️</div>
+      <div class="pipe-title">Results</div>
+      <div class="pipe-sub">Thresholded activation maps</div>
+    </div>
+  </div>
+  <div id="step-detail" style="background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:1.25rem; font-size:14px; color:var(--muted); min-height:60px;"></div>
+
+  <h3 style="margin-top:2.5rem;">Expected Findings</h3>
+  <p>Based on the literature, the Incongruent > Congruent contrast should reveal activity in regions associated with cognitive control and conflict monitoring:</p>
+
+  <div class="params-grid" style="margin-top:1.5rem;">
+    <div class="param-item" style="border-left:2px solid var(--bold);">
+      <div class="param-name">ACC / dACC</div>
+      <div class="param-val" style="font-size:14px;">Conflict monitoring; detects response competition</div>
+    </div>
+    <div class="param-item" style="border-left:2px solid var(--accent);">
+      <div class="param-name">DLPFC</div>
+      <div class="param-val" style="font-size:14px;">Top-down control; suppresses incorrect response</div>
+    </div>
+    <div class="param-item" style="border-left:2px solid var(--gold);">
+      <div class="param-name">Inferior frontal</div>
+      <div class="param-val" style="font-size:14px;">Response inhibition; stopping prepotent responses</div>
+    </div>
+    <div class="param-item" style="border-left:2px solid var(--accent2);">
+      <div class="param-name">Parietal cortex</div>
+      <div class="param-val" style="font-size:14px;">Attention reorienting; top-down attentional control</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2.5rem;">Interactive RT Simulation</h3>
+  <p>Drag the sliders to simulate how individual differences affect the Flanker effect and expected BOLD contrast strength.</p>
+  <div class="hrf-section" style="margin-top:1rem;">
+    <div class="bold-controls">
+      <div class="ctrl-group">
+        <span class="ctrl-label">Congruent RT (ms)</span>
+        <input type="range" id="cong-rt" min="300" max="600" step="10" value="420" oninput="updateSim()">
+        <span id="cong-rt-val" style="font-family:var(--mono); font-size:12px; color:var(--congruent);">420 ms</span>
+      </div>
+      <div class="ctrl-group">
+        <span class="ctrl-label">Incongruent RT (ms)</span>
+        <input type="range" id="inc-rt" min="350" max="750" step="10" value="520" oninput="updateSim()">
+        <span id="inc-rt-val" style="font-family:var(--mono); font-size:12px; color:var(--incongruent);">520 ms</span>
+      </div>
+    </div>
+    <canvas id="simCanvas" style="width:100%;height:180px;"></canvas>
+    <div id="sim-interp" style="font-size:13px; color:var(--muted); margin-top:1rem; padding:1rem; background:var(--surface); border-radius:8px;"></div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="section-label">Knowledge Check</div>
+  <h2>Test Your Understanding</h2>
+  <p>Check your comprehension of the Flanker task and fMRI analysis concepts.</p>
+
+  <div class="quiz-section">
+    <div class="quiz-progress" id="quiz-progress"></div>
+    <div class="quiz-q" id="quiz-question"></div>
+    <div class="quiz-opts" id="quiz-opts"></div>
+    <div class="quiz-feedback" id="quiz-feedback"></div>
+    <button class="quiz-next" id="quiz-next" onclick="nextQ()">Next Question →</button>
+    <div id="quiz-done" style="display:none; text-align:center; padding:1rem;">
+      <div style="font-size:2rem; font-weight:700; color:var(--gold); font-family:var(--mono);" id="quiz-score"></div>
+      <div style="color:var(--muted); margin-top:8px; font-size:14px;" id="quiz-score-msg"></div>
+      <button onclick="restartQuiz()" style="margin-top:1.5rem; background:var(--surface); border:1px solid var(--border2); color:var(--text); font-family:var(--font); font-size:13px; padding:8px 20px; border-radius:6px; cursor:pointer;">Retake Quiz</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="width:100%; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2rem; display:flex; flex-wrap:wrap; gap:2rem; justify-content:space-between; align-items:flex-start;">
+    <!-- Authorship card -->
+    <div style="background:var(--bg2); border:1px solid var(--border2); border-radius:14px; padding:1.5rem 2rem; min-width:280px;">
+      <div style="font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:1rem;">Prepared by</div>
+      <div style="font-size:1.05rem; font-weight:700; color:var(--text); margin-bottom:0.25rem;">Raghad Abdelhameed Awad</div>
+      <div style="width:36px; height:2px; background:var(--accent); border-radius:1px; margin-bottom:1rem;"></div>
+      <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:0.4rem;">Supervised by</div>
+      <div style="font-size:13px; color:var(--text); font-weight:500; margin-bottom:0.2rem;">Dr. Meena M. Makary</div>
+      <div style="font-size:13px; color:var(--text); font-weight:500;">Eng. Aya Eyad</div>
+    </div>
+    <!-- License -->
+    <div style="display:flex; flex-direction:column; gap:0.5rem; justify-content:flex-end;">
+      <div style="font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted);">License</div>
+      <div style="font-size:13px; color:var(--text);">Public Domain Dedication (PDDL v1.0)</div>
+      <div style="font-size:12px; color:var(--muted);">Dataset: NYU Slow Flanker · OpenfMRI ds102</div>
+      <div style="font-size:12px; color:var(--muted);">Kelly et al. (2008), Mennes et al. (2010, 2011)</div>
+    </div>
+  </div>
+  <div class="footer-info">
+    <strong>Dataset:</strong> NYU Slow Flanker · OpenfMRI ds102<br>
+    <span>Kelly et al. (2008), Mennes et al. (2010, 2011)</span>
+  </div>
+  <div class="cite">
+    Kelly, A.M. et al. (2008). Competition between functional brain networks mediates behavioral variability. <em>NeuroImage</em>, 39(1):527–37.<br><br>
+    Mennes, M. et al. (2010). Inter-individual differences in resting-state functional connectivity predict task-induced BOLD activity. <em>NeuroImage</em>, 50(4):1690–701.
+  </div>
+</footer>
+
+<script>
+// ─── TASK DEMO ────────────────────────────────────────────────────────────────
+const trials = [
+  {type:'C', arrows:'> > > > >',  dir:'right'},
+  {type:'I', arrows:'> > < > >',  dir:'left'},
+  {type:'C', arrows:'< < < < <',  dir:'left'},
+  {type:'I', arrows:'< < > < <',  dir:'right'},
+  {type:'C', arrows:'> > > > >',  dir:'right'},
+  {type:'I', arrows:'> > < > >',  dir:'left'},
+  {type:'C', arrows:'< < < < <',  dir:'left'},
+  {type:'I', arrows:'< < > < <',  dir:'right'},
+  {type:'C', arrows:'> > > > >',  dir:'right'},
+  {type:'I', arrows:'< < > < <',  dir:'right'},
+];
+let trialIdx = 0, stimTime = 0, waiting = false, trialResults = [];
+let taskTimer = null;
+
+function startTask() {
+  document.getElementById('task-inner').style.display = 'none';
+  document.getElementById('task-running').style.display = 'block';
+  trialIdx = 0; trialResults = [];
+  buildProgress();
+  runTrial();
+}
+
+function buildProgress() {
+  const p = document.getElementById('task-progress');
+  p.innerHTML = trials.map((_,i) => `<div class="task-dot" id="dot-${i}"></div>`).join('');
+}
+
+function runTrial() {
+  const t = trials[trialIdx];
+  document.getElementById('trial-num').textContent = trialIdx+1;
+  document.getElementById('trial-type').textContent = t.type === 'C' ? 'Congruent' : 'Incongruent';
+  document.getElementById('cong-badge').className = 'badge-dot' + (t.type==='I' ? ' inc' : '');
+  document.getElementById('task-stage').textContent = 'Focus...';
+  document.getElementById('fixation').style.display = 'flex';
+  document.getElementById('arrows').style.display = 'none';
+  document.getElementById('task-btns').style.display = 'none';
+  document.getElementById('task-feedback').textContent = '';
+  document.getElementById('task-feedback').className = '';
+  document.getElementById('task-rt').textContent = '';
+  waiting = false;
+  taskTimer = setTimeout(() => {
+    document.getElementById('fixation').style.display = 'none';
+    document.getElementById('arrows').style.display = 'flex';
+    document.getElementById('arrows').textContent = t.arrows;
+    document.getElementById('arrows').style.color = t.type === 'C' ? 'var(--congruent)' : 'var(--incongruent)';
+    document.getElementById('task-stage').textContent = 'Which direction is the CENTER arrow?';
+    document.getElementById('task-btns').style.display = 'flex';
+    stimTime = performance.now();
+    waiting = true;
+    taskTimer = setTimeout(() => {
+      if (waiting) { recordResponse(null); }
+    }, 2000);
+  }, 500);
+}
+
+function respond(dir) {
+  if (!waiting) return;
+  clearTimeout(taskTimer);
+  recordResponse(dir);
+}
+
+function recordResponse(dir) {
+  waiting = false;
+  const t = trials[trialIdx];
+  const rt = dir ? Math.round(performance.now() - stimTime) : null;
+  const correct = dir === t.dir;
+  const result = {type: t.type, rt, correct};
+  trialResults.push(result);
+  const dot = document.getElementById('dot-'+trialIdx);
+  if (dir === null) {
+    document.getElementById('task-feedback').textContent = 'Too slow!';
+    document.getElementById('task-feedback').className = 'wrong';
+    dot.className = 'task-dot wrong';
+  } else if (correct) {
+    document.getElementById('task-feedback').textContent = '✓ Correct';
+    document.getElementById('task-feedback').className = 'correct';
+    document.getElementById('task-rt').textContent = rt + ' ms';
+    dot.className = 'task-dot done';
+  } else {
+    document.getElementById('task-feedback').textContent = '✗ Incorrect';
+    document.getElementById('task-feedback').className = 'wrong';
+    document.getElementById('task-rt').textContent = rt + ' ms';
+    dot.className = 'task-dot wrong';
+  }
+  document.getElementById('task-btns').style.display = 'none';
+  taskTimer = setTimeout(() => {
+    trialIdx++;
+    if (trialIdx < trials.length) { runTrial(); }
+    else { showResults(); }
+  }, 1000);
+}
+
+function showResults() {
+  document.getElementById('task-running').style.display = 'none';
+  document.getElementById('task-done').style.display = 'block';
+  document.getElementById('task-done').innerHTML = '<p style="color:var(--congruent); font-size:16px; font-weight:600;">Task Complete! See your results below ↓</p>';
+  const cRTs = trialResults.filter(r=>r.type==='C' && r.rt).map(r=>r.rt);
+  const iRTs = trialResults.filter(r=>r.type==='I' && r.rt).map(r=>r.rt);
+  const avgC = cRTs.length ? Math.round(cRTs.reduce((a,b)=>a+b)/cRTs.length) : null;
+  const avgI = iRTs.length ? Math.round(iRTs.reduce((a,b)=>a+b)/iRTs.length) : null;
+  const effect = (avgC && avgI) ? avgI - avgC : null;
+  document.getElementById('res-cong-rt').textContent = avgC ? avgC+'ms' : '—';
+  document.getElementById('res-inc-rt').textContent = avgI ? avgI+'ms' : '—';
+  document.getElementById('res-effect').textContent = effect ? (effect>0?'+':'')+effect+' ms' : '—';
+  let interp = '';
+  if (effect !== null) {
+    if (effect > 80) interp = 'Large flanker effect — strong interference from distractors. This predicts stronger ACC/DLPFC BOLD difference in fMRI.';
+    else if (effect > 30) interp = 'Typical flanker effect (~50-100ms in most studies). Good signal for fMRI contrast.';
+    else if (effect > 0) interp = 'Small but positive flanker effect. Suggests efficient cognitive control.';
+    else interp = 'Negative effect — unusually fast on incongruent trials! Possible speed-accuracy tradeoff.';
+  }
+  document.getElementById('res-interp').textContent = interp;
+  document.getElementById('results-panel').classList.add('visible');
+  document.getElementById('results-panel').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// ─── HRF CANVAS ────────────────────────────────────────────────────────────────
+function gamma(t, a, b) {
+  const lg = x => { let r=1; for(let i=1;i<x;i++) r*=i; return r; };
+  const ga = lg(Math.round(a));
+  return Math.pow(b*t, a) * Math.exp(-b*t) / (t * ga);
+}
+
+function hrf(t, peak, amp) {
+  if (t < 0) return 0;
+  const h1 = amp * gamma(t+0.001, peak*1.5, 1.4);
+  const h2 = 0.35 * amp * gamma(t+0.001, (peak+3)*1.5, 1.4);
+  return h1 - h2;
+}
+
+function drawHRF() {
+  const canvas = document.getElementById('hrfCanvas');
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  const amp = parseFloat(document.getElementById('amp-ctrl').value);
+  const lat = parseFloat(document.getElementById('lat-ctrl').value);
+  const view = document.getElementById('hrf-view').value;
+  ctx.clearRect(0,0,W,H);
+  const pad = {l:40,r:20,t:20,b:30};
+  const iw = W-pad.l-pad.r, ih = H-pad.t-pad.b;
+  const maxT = 28, npts = 200;
+  const congAmp = amp * 0.8, incAmp = amp;
+  const congLat = lat - 0.3, incLat = lat + 0.3;
+  const getCurve = (a,l) => Array.from({length:npts}, (_,i) => {
+    const t = (i/(npts-1)) * maxT;
+    return {t, v: hrf(t, l, a)};
+  });
+  const cCurve = getCurve(congAmp, congLat);
+  const iCurve = getCurve(incAmp, incLat);
+  const allV = [...cCurve.map(p=>p.v), ...iCurve.map(p=>p.v)];
+  const maxV = Math.max(...allV, 0.01), minV = Math.min(...allV, 0);
+  const range = maxV - minV + 0.01;
+  const tx = t => pad.l + (t/maxT)*iw;
+  const ty = v => pad.t + ih - ((v - minV)/range)*ih;
+  ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+  ctx.lineWidth = 1;
+  for (let v=0; v<=1; v+=0.25) {
+    const y = ty(minV + v * range);
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l+iw, y); ctx.stroke();
+  }
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  for (let t=0; t<=maxT; t+=4) {
+    const x = tx(t);
+    ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t+ih); ctx.stroke();
+    ctx.fillStyle = 'rgba(140,150,170,0.6)';
+    ctx.font = '10px DM Mono, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(t+'s', x, pad.t+ih+18);
+  }
+  const drawLine = (curve, color) => {
+    ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    ctx.beginPath();
+    curve.forEach((p,i) => { const x=tx(p.t), y=ty(p.v); i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y); });
+    ctx.stroke();
+  };
+  const drawFill = (curve, color) => {
+    const zero = ty(0);
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(tx(0), zero);
+    curve.forEach(p => ctx.lineTo(tx(p.t), ty(p.v)));
+    ctx.lineTo(tx(maxT), zero);
+    ctx.closePath();
+    ctx.fill();
+  };
+  if (view === 'both' || view === 'cong') { drawFill(cCurve, 'rgba(64,200,144,0.08)'); drawLine(cCurve, '#40c890'); }
+  if (view === 'both' || view === 'inc')  { drawFill(iCurve, 'rgba(255,95,109,0.08)');  drawLine(iCurve, '#ff5f6d'); }
+  if (view === 'contrast') {
+    const contrast = cCurve.map((p,i) => ({t:p.t, v:iCurve[i].v - p.v}));
+    drawFill(contrast, 'rgba(240,180,41,0.08)');
+    ctx.setLineDash([5,4]); drawLine(contrast, '#f0b429'); ctx.setLineDash([]);
+  }
+}
+
+// ─── SIMULATION CANVAS ──────────────────────────────────────────────────────
+function updateSim() {
+  const cRT = parseInt(document.getElementById('cong-rt').value);
+  const iRT = parseInt(document.getElementById('inc-rt').value);
+  document.getElementById('cong-rt-val').textContent = cRT+' ms';
+  document.getElementById('inc-rt-val').textContent = iRT+' ms';
+  const effect = iRT - cRT;
+  const boldEffect = Math.max(0, effect * 0.006).toFixed(2);
+  const canvas = document.getElementById('simCanvas');
+  const dpr = window.devicePixelRatio||1;
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+  const barH = 44, gap = 20, startX = 80, maxW = W-startX-120;
+  const maxRT = 800;
+  const cW = (cRT/maxRT)*maxW, iW = (iRT/maxRT)*maxW;
+  const drawBar = (bx,by,bw,bh,color,label,val) => {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    const r = 6, mnr = Math.min(r, bw/2, bh/2);
+    ctx.moveTo(bx+mnr, by);
+    ctx.lineTo(bx+bw-mnr, by);
+    ctx.arcTo(bx+bw, by, bx+bw, by+mnr, mnr);
+    ctx.lineTo(bx+bw, by+bh-mnr);
+    ctx.arcTo(bx+bw, by+bh, bx+bw-mnr, by+bh, mnr);
+    ctx.lineTo(bx+mnr, by+bh);
+    ctx.arcTo(bx, by+bh, bx, by+bh-mnr, mnr);
+    ctx.lineTo(bx, by+mnr);
+    ctx.arcTo(bx, by, bx+mnr, by, mnr);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = 'rgba(140,150,170,0.8)';
+    ctx.font = '12px Space Grotesk, sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText(label, bx-10, by+bh/2+4);
+    ctx.fillStyle = 'rgba(200,210,230,0.9)';
+    ctx.textAlign = 'left';
+    ctx.fillText(val+'ms', bx+bw+10, by+bh/2+4);
+  };
+  drawBar(startX, 30, cW, barH, '#40c890', 'Congruent', cRT);
+  drawBar(startX, 30+barH+gap, iW, barH, '#ff5f6d', 'Incongruent', iRT);
+  const eX = startX + cW;
+  ctx.strokeStyle = 'rgba(240,180,41,0.6)'; ctx.lineWidth = 1.5; ctx.setLineDash([4,3]);
+  ctx.beginPath(); ctx.moveTo(eX, 20); ctx.lineTo(eX, 30+barH*2+gap+10); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(240,180,41,0.8)'; ctx.font = '11px DM Mono, monospace'; ctx.textAlign='center';
+  ctx.fillText('+'+effect+'ms', (eX + startX+iW)/2, 30+barH+gap-5);
+  document.getElementById('sim-interp').innerHTML =
+    `<strong style="color:var(--text)">Flanker Effect: +${effect} ms</strong> → Predicted BOLD contrast: ~${boldEffect}% signal change. ` +
+    (effect > 100 ? 'Strong effect — this subject would show robust ACC and DLPFC activation.' :
+     effect > 50 ? 'Moderate effect — reliable but typical cognitive control engagement.' :
+     'Small effect — may show limited BOLD difference; check behavioral accuracy too.');
+}
+
+// ─── PIPELINE STEPS ───────────────────────────────────────────────────────────
+const steps = [
+  'Raw NIfTI files in BIDS format (sub-01/func/sub-01_task-flanker_run-1_bold.nii.gz) plus events.tsv with onset times for each congruent/incongruent trial.',
+  'Motion correction (realignment to first volume), slice-timing correction, coregistration of functional to structural, normalization to MNI space (via MPRAGE T1), and spatial smoothing (typically 6mm FWHM Gaussian kernel).',
+  'For each subject: model the expected BOLD response by convolving event onsets with the canonical HRF, creating separate regressors for Congruent and Incongruent conditions. Nuisance regressors for motion parameters included.',
+  'Compute t-contrast: Incongruent > Congruent at the individual level. Each voxel gets a beta estimate and t-statistic reflecting differential BOLD to conflict vs. no-conflict.',
+  'Second-level (group) random-effects analysis across all 26 subjects using a one-sample t-test on the individual contrast maps. Accounts for between-subject variability.',
+  'Threshold at p<0.001 uncorrected or p<0.05 FWE-corrected. Clusters in dACC/MCC, bilateral DLPFC, inferior frontal gyrus, and parietal cortex expected for the Incongruent > Congruent contrast.',
+];
+
+function showStep(i) {
+  document.getElementById('step-detail').innerHTML = `<strong style="color:var(--accent)">Step ${i+1}:</strong> ${steps[i]}`;
+  document.getElementById('step-detail').classList.add('fade-in');
+  setTimeout(() => document.getElementById('step-detail').classList.remove('fade-in'), 400);
+}
+
+// ─── QUIZ ────────────────────────────────────────────────────────────────────
+const questions = [
+  {
+    q: "In the Flanker task, what is the participant's primary task?",
+    opts: ['Identify which direction all five arrows point','Respond to the direction of the center arrow only','Count the number of arrows pointing right','Memorize the arrow pattern for later recall'],
+    ans: 1, exp: 'Correct! Participants report only the direction of the central arrow. The flanking arrows are irrelevant distractors — ignoring them requires cognitive control.'
+  },
+  {
+    q: 'Why are inter-trial intervals "jittered" (varied randomly) in event-related fMRI?',
+    opts: ['To make the task harder for participants','To decorrelate BOLD responses so they can be individually estimated','To save scanner time between blocks','To counterbalance congruent and incongruent trials'],
+    ans: 1, exp: 'Jittering the ITI decorrelates the overlapping hemodynamic responses across successive trials, allowing the GLM to estimate each condition\'s BOLD response separately.'
+  },
+  {
+    q: 'Which brain region is most consistently associated with conflict monitoring in the Flanker task?',
+    opts: ['Primary visual cortex (V1)','Hippocampus','Anterior/dorsal cingulate cortex (dACC)','Cerebellum'],
+    ans: 2, exp: 'The dACC (and the broader cingulate motor area) is the classic "conflict monitor" — it detects response competition between the correct center arrow and the prepotent flanker-driven response.'
+  },
+  {
+    q: 'In the NYU Slow Flanker dataset, how many total trials does each participant complete?',
+    opts: ['24 trials total','48 trials total (12 cong + 12 incong × 2 blocks)','96 trials total','146 trials total'],
+    ans: 1, exp: '2 blocks × (12 congruent + 12 incongruent) = 48 trials per subject. Each block is about 5 minutes with a mean ITI of 12 seconds.'
+  },
+  {
+    q: 'What does the "BOLD" signal in fMRI actually measure?',
+    opts: ['The electrical activity of neurons directly','Local cerebral blood flow only','The ratio of oxygenated to deoxygenated hemoglobin (indirectly reflecting neural activity)','Glucose metabolism via PET-like mechanism'],
+    ans: 2, exp: 'BOLD (Blood-Oxygen-Level Dependent) measures changes in the magnetic properties of blood as oxygenation changes — an indirect measure of neural activity via neurovascular coupling.'
+  },
+  {
+    q: 'What is the "Flanker effect" (also called the "flanker interference cost")?',
+    opts: ['The percentage of errors in incongruent trials','The difference in reaction time between incongruent and congruent trials','The latency of the BOLD peak in the HRF','The ratio of correct to incorrect responses'],
+    ans: 1, exp: 'The Flanker effect = RT_incongruent − RT_congruent. Larger values indicate greater cognitive interference from conflicting flankers and more cognitive control is needed.'
+  },
+];
+
+let qIdx = 0, score = 0, answered = false;
+
+function initQuiz() {
+  qIdx = 0; score = 0; answered = false;
+  document.getElementById('quiz-done').style.display = 'none';
+  renderQ();
+}
+
+function renderQ() {
+  const q = questions[qIdx];
+  const prog = document.getElementById('quiz-progress');
+  prog.innerHTML = questions.map((_,i) => `<div class="quiz-pip ${i<qIdx?'done':i===qIdx?'current':''}"></div>`).join('');
+  document.getElementById('quiz-question').textContent = (qIdx+1)+'. '+q.q;
+  document.getElementById('quiz-feedback').textContent = '';
+  document.getElementById('quiz-next').classList.remove('show');
+  answered = false;
+  const opts = document.getElementById('quiz-opts');
+  opts.innerHTML = q.opts.map((o,i) =>
+    `<button class="quiz-opt" onclick="answerQ(${i})">${o}</button>`
+  ).join('');
+}
+
+function answerQ(i) {
+  if (answered) return;
+  answered = true;
+  const q = questions[qIdx];
+  const btns = document.querySelectorAll('.quiz-opt');
+  btns.forEach((b,bi) => {
+    if (bi === q.ans) b.classList.add('correct');
+    else if (bi === i && i !== q.ans) b.classList.add('wrong');
+    b.disabled = true;
+  });
+  if (i === q.ans) { score++; document.getElementById('quiz-feedback').style.color = 'var(--congruent)'; }
+  else document.getElementById('quiz-feedback').style.color = 'var(--incongruent)';
+  document.getElementById('quiz-feedback').textContent = q.exp;
+  document.getElementById('quiz-next').classList.add('show');
+  document.getElementById('quiz-next').textContent = qIdx < questions.length-1 ? 'Next Question →' : 'See Results';
+}
+
+function nextQ() {
+  qIdx++;
+  if (qIdx >= questions.length) {
+    document.getElementById('quiz-opts').innerHTML = '';
+    document.getElementById('quiz-question').textContent = '';
+    document.getElementById('quiz-feedback').textContent = '';
+    document.getElementById('quiz-next').classList.remove('show');
+    document.getElementById('quiz-done').style.display = 'block';
+    document.getElementById('quiz-score').textContent = score+'/'+questions.length;
+    const pct = Math.round(score/questions.length*100);
+    document.getElementById('quiz-score-msg').textContent =
+      pct===100 ? 'Perfect score! You have a strong grasp of Flanker fMRI analysis.' :
+      pct>=80 ? 'Excellent! You understand the key concepts well.' :
+      pct>=60 ? 'Good work — review the HRF and experimental design sections.' :
+      'Keep studying! Revisit the fMRI and analysis sections above.';
+  } else { renderQ(); }
+}
+
+function restartQuiz() { initQuiz(); }
+
+function scroll(id) { document.querySelector(id)?.scrollIntoView({behavior:'smooth'}); }
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  drawHRF();
+  updateSim();
+  initQuiz();
+  showStep(0);
+});
+window.addEventListener('resize', () => { drawHRF(); updateSim(); });
+</script>
+</body>
+</html>
